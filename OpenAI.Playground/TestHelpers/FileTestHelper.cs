@@ -1,5 +1,5 @@
-﻿using OpenAI.GPT3.Interfaces;
-using OpenAI.GPT3.ObjectModels;
+﻿using OpenAI.GPT3.DotNetStandard.Interfaces;
+using OpenAI.GPT3.DotNetStandard.ObjectModels;
 
 namespace OpenAI.Playground.TestHelpers
 {
