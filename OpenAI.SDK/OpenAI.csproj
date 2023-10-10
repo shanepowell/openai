@@ -11,11 +11,12 @@
 		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>OpenAI SDK by Betalgo</Title>
-		<Version>7.2.0.2</Version>
+		<Version>7.2.0.3</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI ChatGPT, Whisper, GPT-4 and DALL·E dotnet SDK</Product>
 		<Description>Dotnet SDK for OpenAI ChatGPT, Whisper, GPT-4 and DALL·E</Description>
+		<RepositoryUrl>https://github.com/shanepowell/openai/</RepositoryUrl>
 		<PackageTags>openAI,chatGPT,gpt-4, gpt-3,DALL·E,whisper,azureOpenAI,ai,betalgo,NLP,dalle,,dall-e,OpenAI,OpenAi,openAi,azure</PackageTags>
 		<PackageId>Betalgo.OpenAI</PackageId>
 		<PackageReadmeFile>Readme.md</PackageReadmeFile>
