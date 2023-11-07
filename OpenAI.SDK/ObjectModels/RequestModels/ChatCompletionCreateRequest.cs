@@ -132,6 +132,27 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     [JsonPropertyName("logit_bias")]
     public object? LogitBias { get; set; }
 
+    /// <summary>
+    ///     An object specifying the format that the model must output.
+    ///     Setting to { type: "json_object" } enables JSON mode, which guarantees the message the model generates is valid JSON.
+    ///     Important: when using JSON mode you must still instruct the model to produce JSON yourself via some conversation message,
+    ///     for example via your system message. If you don't do this, the model may generate an unending stream of whitespace until
+    ///     the generation reaches the token limit, which may take a lot of time and give the appearance of a "stuck" request. Also
+    ///     note that the message content may be partial (i.e. cut off) if finish_reason="length", which indicates the generation
+    ///     exceeded max_tokens or the conversation exceeded the max context length.
+    /// </summary>
+    /// <seealso href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format" />
+    [JsonPropertyName("response_format")]
+    public object? ResponseFormat { get; set; }
+
+    /// <summary>
+    ///     This feature is in Beta. If specified, our system will make a best effort to sample deterministically, such that
+    ///     repeated requests with the same seed and parameters should return the same result. Determinism is not guaranteed,
+    ///     and you should refer to the system_fingerprint response parameter to monitor changes in the backend.
+    /// </summary>
+    /// <seealso href="https://platform.openai.com/docs/api-reference/chat/create#chat-create-response_format" />
+    [JsonPropertyName("seed")]
+    public int? Seed { get; set; }
 
     /// <summary>
     ///     String or object. Controls how the model responds to function calls.
@@ -169,5 +190,5 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     ///     A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. Learn more.
     /// </summary>
     [JsonPropertyName("user")]
-    public string User { get; set; }
+    public string? User { get; set; }
 }
