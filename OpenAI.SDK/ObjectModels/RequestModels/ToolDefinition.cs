@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -10,6 +11,7 @@ public class ToolDefinition
     /// <summary>
     ///     Required. The type of the tool. Currently, only function is supported.
     /// </summary>
+    [Required]
     [JsonPropertyName("type")]
     public string Type { get; set; } = StaticValues.CompletionStatics.ToolType.Function;
 

@@ -54,10 +54,11 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             case ProviderType.OpenRouterAi:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
+                _httpClient.DefaultRequestHeaders.Add("OpenAI-Beta", settings.Assistants);
                 break;
         }
 
-        if (!string.IsNullOrEmpty(settings.Organization))
+        if (!string.IsNullOrWhiteSpace(settings.Organization))
         {
             _httpClient.DefaultRequestHeaders.Add("OpenAI-Organization", $"{settings.Organization}");
         }
@@ -113,6 +114,12 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
     /// <inheritdoc />
     public IAudioService Audio => this;
+
+    /// <inheritdoc />
+    public IBetaService Beta => this;
+
+
+
 
     /// <summary>
     ///     Sets default Model Id
