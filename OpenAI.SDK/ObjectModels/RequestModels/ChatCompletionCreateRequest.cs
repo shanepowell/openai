@@ -26,12 +26,12 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
     /// <summary>
     ///     A list of functions the model may generate JSON inputs for.
     /// </summary>
-    [JsonIgnore, Obsolete("use ToolFunctions instead")]
+    [JsonIgnore, Obsolete("use Tools instead")]
     public IList<FunctionDefinition>? Functions { get; set; }
 
-    [JsonIgnore, Obsolete("use ToolFunctions instead")] public object? FunctionsAsObject { get; set; }
+    [JsonIgnore, Obsolete("use Tools instead")] public object? FunctionsAsObject { get; set; }
 
-    [JsonPropertyName("functions"), Obsolete("use ToolFunctions instead")]
+    [JsonPropertyName("functions"), Obsolete("use Tools instead")]
     public object? FunctionCalculated
     {
         get
