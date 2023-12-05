@@ -13,7 +13,7 @@ public class ToolDefinition
     /// </summary>
     [Required]
     [JsonPropertyName("type")]
-    public string Type { get; set; } = StaticValues.CompletionStatics.ToolType.Function;
+    public string Type { get; set; }
 
   
     /// <summary>
