@@ -41,4 +41,10 @@ public class ToolDefinition
             return Function ?? FunctionsAsObject;
         }
     }
+
+    public static ToolDefinition DefineFunction(FunctionDefinition function) => new()
+    {
+        Type = StaticValues.CompletionStatics.ToolType.Function,
+        Function = function
+    };
 }

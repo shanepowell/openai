@@ -51,14 +51,16 @@ await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
 //await ThreadTestHelper.RunThreadRetrieveTest(sdk);
 
 //await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
-await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
-//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 //await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
+
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
+await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
+await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
+//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+
 // Whisper
 //await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
 //await AudioTestHelper.RunSimpleAudioCreateTranslationTest(sdk);
