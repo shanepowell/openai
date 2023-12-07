@@ -2,7 +2,6 @@
 using System.Text.Json.Serialization;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.SharedModels;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace OpenAI.ObjectModels.RequestModels;
 
@@ -136,7 +135,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAiModels.ITemper
         {
             if (ToolsAsObject != null && Tools != null)
             {
-                throw new ValidationException("ToolsAsObject or Tools can not be assigned at the same time. One of them is should be null.");
+                throw new ValidationException("ToolsAsObject and Tools can not be assigned at the same time. One of them is should be null.");
             }
 
             return Tools ?? ToolsAsObject;

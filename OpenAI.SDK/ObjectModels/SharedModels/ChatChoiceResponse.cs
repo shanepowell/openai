@@ -24,4 +24,13 @@ public record ChatChoiceResponse
     /// tool_calls if the model called a tool, or function_call (deprecated) if the model called a function.
     /// </summary>
     [JsonPropertyName("finish_reason")] public string FinishReason { get; set; }
+
+    [JsonPropertyName("finish_details")] public FinishDetailsResponse? FinishDetails { get; set; }
+    public class FinishDetailsResponse
+    {
+        [JsonPropertyName("type")]
+        public string Type { get; set; }
+        [JsonPropertyName("stop")]
+        public string Stop { get; set; }
+    }
 }
