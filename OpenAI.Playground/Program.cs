@@ -42,24 +42,17 @@ var sdk = serviceProvider.GetRequiredService<IOpenAIService>();
 //  |   / \   / \   | \  /)  |    ( \  /o\  / )    |  (\  / |   / \   / \   |
 //  |-----------------------------------------------------------------------|
 
-//await AssistantTestHelper.RunAssistantCreateTest(sdk);
-//await AssistantTestHelper.RunAssistantWorkTest(sdk);
-await AssistantTestHelper.RunHowAssistantsWorkTest(sdk);
+await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
+//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
 
-//await MessageTestHelper.RunMessageCreateTest(sdk);
-
-//await ThreadTestHelper.RunThreadRetrieveTest(sdk);
-
-//await ChatCompletionTestHelper.RunSimpleChatCompletionTest(sdk);
 // Vision
 //await VisionTestHelper.RunSimpleVisionTest(sdk);
 //await VisionTestHelper.RunSimpleVisionStreamTest(sdk);
 //await VisionTestHelper.RunSimpleVisionTestUsingBase64EncodedImage(sdk);
 
-//await ChatCompletionTestHelper.RunSimpleCompletionStreamTest(sdk);
-await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
-await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
-//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
+// Tools
+//await ChatCompletionTestHelper.RunChatFunctionCallTest(sdk);
+//await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
 
 // Whisper
 //await AudioTestHelper.RunSimpleAudioCreateTranscriptionTest(sdk);
@@ -81,9 +74,11 @@ await ChatCompletionTestHelper.RunChatFunctionCallTestAsStream(sdk);
 //await EmbeddingTestHelper.RunSimpleEmbeddingTest(sdk);
 //////await FileTestHelper.RunSimpleFileTest(sdk); //will delete all of your files
 //////await FineTuningTestHelper.CleanUpAllFineTunings(sdk); //!!!!! will delete all fine-tunings
+//await FineTuningJobTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 //await FineTuningTestHelper.RunCaseStudyIsTheModelMakingUntrueStatements(sdk);
 //await TokenizerTestHelper.RunTokenizerTest();
 //await TokenizerTestHelper.RunTokenizerCountTest();
 //await TokenizerTestHelper.RunTokenizerTestCrClean();
 
+Console.WriteLine("Press any key to exit...");
 Console.ReadLine();
