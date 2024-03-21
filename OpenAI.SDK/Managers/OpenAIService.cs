@@ -50,8 +50,11 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             case ProviderType.Azure:
                 _httpClient.DefaultRequestHeaders.Add("api-key", settings.ApiKey);
                 break;
-            case ProviderType.OpenAi:
             case ProviderType.OpenRouterAi:
+            case ProviderType.Groq:
+                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
+                break;
+            case ProviderType.OpenAi:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 _httpClient.DefaultRequestHeaders.Add("OpenAI-Beta", settings.Assistants);

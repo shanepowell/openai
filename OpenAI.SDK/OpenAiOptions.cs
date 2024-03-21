@@ -18,7 +18,12 @@ public enum ProviderType
     /// <summary>
     ///     OpenRouter AI Provider
     /// </summary>
-    OpenRouterAi = 3
+    OpenRouterAi = 3,
+
+    /// <summary>
+    ///     Groq Provider
+    /// </summary>
+    Groq = 4
 }
 
 public class OpenAiOptions
@@ -28,6 +33,8 @@ public class OpenAiOptions
     private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
     private const string OpenRouterAiDefaultApiVersion = "api/v1";
     private const string OpenRouterAiDefaultBaseDomain = "https://openrouter.ai/";
+    private const string GroqDefaultApiVersion = "openai/v1";
+    private const string GroqDefaultBaseDomain = "https://api.groq.com/";
     private const string OpenAiDefaultAssistantsApiVersion = "v1";
 
     /// <summary>
@@ -80,6 +87,7 @@ public class OpenAiOptions
                 ProviderType.OpenAi => OpenAiDefaultApiVersion,
                 ProviderType.Azure => AzureOpenAiDefaultApiVersion,
                 ProviderType.OpenRouterAi => OpenRouterAiDefaultApiVersion,
+                ProviderType.Groq => GroqDefaultApiVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
         }
@@ -101,6 +109,7 @@ public class OpenAiOptions
                 ProviderType.OpenAi => OpenAiDefaultBaseDomain,
                 ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
                 ProviderType.OpenRouterAi => OpenRouterAiDefaultBaseDomain,
+                ProviderType.Groq => GroqDefaultBaseDomain,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
 #pragma warning restore CS8603
