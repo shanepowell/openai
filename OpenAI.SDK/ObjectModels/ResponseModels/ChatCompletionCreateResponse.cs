@@ -17,4 +17,6 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAiModels.IId, IO
 
     [JsonPropertyName("system_fingerprint")] public string SystemFingerPrint { get; set; }
 
+    // Groq API specific fields
+    [JsonPropertyName("x_groq")] public GroqUsageResponse? XGroq { get; set; }
 }
