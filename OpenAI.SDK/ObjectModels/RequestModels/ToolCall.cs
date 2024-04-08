@@ -9,18 +9,24 @@ namespace OpenAI.ObjectModels.RequestModels;
 public class ToolCall
 {
     /// <summary>
+    ///     The Index of the tool call.
+    /// </summary>
+    [JsonPropertyName("index")]
+    public int Index { get; set; }
+
+    /// <summary>
     ///     The ID of the tool call.
     ///     This ID must be referenced 
     ///     when you submit the tool outputs in using the Submit tool outputs to run endpoint.
     /// </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     ///     The type of the tool. Currently, only function is supported.
     /// </summary>
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
     /// <summary>
     ///     The function that the model called.
