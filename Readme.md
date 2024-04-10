@@ -12,7 +12,8 @@ Dotnet SDK for OpenAI
 
 ## Checkout the wiki page: 
 https://github.com/betalgo/openai/wiki  
-or  [![Static Badge](https://img.shields.io/badge/API%20Docs-RobiniaDocs-43bc00?logo=readme&logoColor=white)](https://www.robiniadocs.com/d/betalgo-openai/api/OpenAI.ObjectModels.RequestModels.ChatMessage.html)
+Betalgo.OpenAI: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.OpenAiOptions.html)  
+Betalgo.OpenAI.Utilities: [![Static Badge](https://img.shields.io/badge/API%20Docs-DNDocs-190088?logo=readme&logoColor=white)](https://dndocs.com/d/betalgo-openai/api/OpenAI.Utilities.Embedding.EmbeddingTools.html)
 ## Checkout new ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
 ```
@@ -303,6 +304,9 @@ I will always be using the latest libraries, and future releases will frequently
 I am incredibly busy. If I forgot your name, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
+### 8.0.0
+- Added support for .NET 8.0 thanks to @BroMarduk
+- Utilities library updated to work with only .NET 8.0
 ### 7.4.7
 - Fixed a bug that was causing binary image to be sent as base64 string, Thanks to @yt3trees
 - Fixed a bug that was blocking CreateCompletionAsStream on some platforms. #331
