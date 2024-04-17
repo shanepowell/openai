@@ -31,11 +31,12 @@ public class OpenAiOptions
     private const string OpenAiDefaultApiVersion = "v1";
     private const string OpenAiDefaultBaseDomain = "https://api.openai.com/";
     private const string AzureOpenAiDefaultApiVersion = "2023-12-01-preview";
+    private const string OpenAiDefaultAssistantsApiVersion = "v1";
+
     private const string OpenRouterAiDefaultApiVersion = "api/v1";
     private const string OpenRouterAiDefaultBaseDomain = "https://openrouter.ai/";
     private const string GroqDefaultApiVersion = "openai/v1";
     private const string GroqDefaultBaseDomain = "https://api.groq.com/";
-    private const string OpenAiDefaultAssistantsApiVersion = "v1";
 
     /// <summary>
     ///     Setting key for Json Setting Bindings
@@ -153,6 +154,8 @@ public class OpenAiOptions
     ///     Default model id. If you are working with only one model, this will save you from few line extra code.
     /// </summary>
     public string? DefaultModelId { get; set; }
+
+    public bool UseBeta { get; set; } = false;
 
     /// <summary>
     ///     Create an instance of this class with the necessary information to connect to the azure open ai api

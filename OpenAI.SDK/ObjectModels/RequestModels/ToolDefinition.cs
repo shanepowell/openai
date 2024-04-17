@@ -47,4 +47,13 @@ public class ToolDefinition
         Type = StaticValues.CompletionStatics.ToolType.Function,
         Function = function
     };
+
+    public static ToolDefinition DefineCodeInterpreter() => new()
+    {
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.CodeInterpreter,
+    };
+    public static ToolDefinition DefineRetrieval() => new()
+    {
+        Type = StaticValues.AssistantsStatics.ToolCallTypes.Retrieval,
+    };
 }

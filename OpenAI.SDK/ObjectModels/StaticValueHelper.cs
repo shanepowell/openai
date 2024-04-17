@@ -110,22 +110,25 @@ public class StaticValues
         public static string User => "user";
         public static string Assistant => "assistant";
         public static string Tool => "tool";
-    }
-
-    public static class ToolCallTypes
-    {
-        public static string CodeInterpreter=> "code_interpreter";
-        public static string Retrieval => "retrieval";
         public static string Function => "function";
+
     }
 
-    public static class AssistatntsStatics
+    public static class AssistantsStatics
     {
+        public static class ToolCallTypes
+        {
+            public static string CodeInterpreter => "code_interpreter";
+            public static string Retrieval => "retrieval";
+            public static string Function => "function";
+        }
+
         public static class MessageStatics
         {
             public static class Roles
             {
                 public static string User => "user";
+                public static string Assistant => "assistant";
             }
 
             public static class Content
