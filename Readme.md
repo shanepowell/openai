@@ -6,6 +6,17 @@
 Install-Package Betalgo.OpenAI
 ```
 
+# Beta:
+### **Assistant features are available only in the beta version.**
+To check avaliable features: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability)
+
+Beta version Nuget: [V8.2.0-beta](https://www.nuget.org/packages/Betalgo.OpenAI/8.2.0-beta)
+```
+Install-Package Betalgo.OpenAI -Version 8.2.0-beta
+```
+Use `"UseBeta": true` in your config file or  
+`serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or  
+`new OpenAiOptions { UseBeta = true }` in your service registration.
 
 ## ***experimental*** utilities library:
 [![Betalgo.OpenAI.Utilities](https://img.shields.io/nuget/v/Betalgo.OpenAI.Utilities?style=for-the-badge)](https://www.nuget.org/packages/Betalgo.OpenAI.Utilities/)
@@ -286,10 +297,12 @@ I will always be using the latest libraries, and future releases will frequently
 If I forgot your name in change logs, please accept my apologies and let me know so I can add it to the list.
 
 ## Changelog
-### 8.1.1-beta
+### 8.2.0-beta
 - Added support for beta features, such as assistants, threads, messages, and run. Still missing some of the endpoints, but good progress achieved. See complete list from here: [Feature Availability Table](https://github.com/betalgo/openai/wiki/Feature-Availability). Thanks to @CongquanHu , @alistein, @hucongquan.
 - Use `"UseBeta": true` in your config file or  `serviceCollection.AddOpenAIService(r=>r.UseBeta = true);` or `new OpenAiOptions { UseBeta = true }` in your service registration.
 
+### 8.1.1
+- Fixed incorrect mapping for batch API error response.
 ### 8.1.0
 - Added support for Batch API
 ### 8.0.1
