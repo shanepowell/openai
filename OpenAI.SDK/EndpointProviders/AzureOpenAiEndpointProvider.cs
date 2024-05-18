@@ -204,7 +204,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/assistants/{assistantId}{AzureVersionQueryString}";
     }
 
-    public string AssistantList(AssistantListRequest? assistantListRequest)
+    public string AssistantList(PaginationRequest? assistantListRequest)
     {
         var url = $"{Prefix}/assistants{AzureVersionQueryString}";
 
@@ -232,7 +232,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/assistants/{assistantId}/files/{fileId}{AzureVersionQueryString}";
     }
 
-    public string AssistantFileList(string assistantId, AssistantFileListRequest? assistantFileListRequest)
+    public string AssistantFileList(string assistantId, PaginationRequest? assistantFileListRequest)
     {
         var url = $"{Prefix}/assistants/files{AzureVersionQueryString}";
 
@@ -280,7 +280,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
     }
 
-    public string MessageList(string threadId, MessageListRequest? messageListRequest)
+    public string MessageList(string threadId, PaginationRequest? messageListRequest)
     {
         var url = $"{Prefix}/threads/{threadId}/messages{AzureVersionQueryString}";
 
@@ -292,7 +292,10 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
-
+    public string MessageDelete(string threadId, string messageId)
+    {
+        return $"{Prefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
+    }
 
     public string RunCreate(string threadId)
     {
@@ -309,7 +312,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/threads/{threadId}/runs/{runId}{AzureVersionQueryString}";
     }
 
-    public string RunList(string threadId, RunListRequest? runListRequest)
+    public string RunList(string threadId, PaginationRequest? runListRequest)
     {
         var url = $"{Prefix}/threads/{threadId}/runs{AzureVersionQueryString}";
 
@@ -342,7 +345,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/threads/{threadId}/runs/{runId}/steps/{stepId}{AzureVersionQueryString}";
     }
 
-    public string RunStepList(string threadId, string runId, RunStepListRequest? runStepListRequest)
+    public string RunStepList(string threadId, string runId, PaginationRequest? runStepListRequest)
     {
         var url = $"{Prefix}/threads/{threadId}/runs/{runId}/steps{AzureVersionQueryString}";
 
@@ -361,7 +364,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/vector_stores{AzureVersionQueryString}";
     }
 
-    public string VectorStoreList(BaseListRequest baseListRequest)
+    public string VectorStoreList(PaginationRequest baseListRequest)
     {
         var url = $"{Prefix}/vector_stores{AzureVersionQueryString}";
 
@@ -404,7 +407,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/vector_stores/{vectorStoreId}/files/{fileId}{AzureVersionQueryString}";
     }
 
-    public string VectorStoreFileList(string vectorStoreId, BaseListRequest? baseListRequest)
+    public string VectorStoreFileList(string vectorStoreId, VectorStoreFileListRequest? baseListRequest)
     {
         var url = $"{Prefix}/vector_stores/{vectorStoreId}/files{AzureVersionQueryString}";
 
@@ -432,7 +435,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/vector_stores/{vectorStoreId}/files/batches/{batchId}/cancel{AzureVersionQueryString}";
     }
 
-    public string VectorStoreFileBatchList(string vectorStoreId, string batchId, BaseListRequest? baseListRequest)
+    public string VectorStoreFileBatchList(string vectorStoreId, string batchId, PaginationRequest? baseListRequest)
     {
         var url = $"{Prefix}/vector_stores/{vectorStoreId}/files/batches{AzureVersionQueryString}";
 
