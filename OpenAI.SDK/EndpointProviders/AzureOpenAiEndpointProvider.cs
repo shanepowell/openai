@@ -21,6 +21,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
     private string Prefix => $"{ApiPrefix}/{DeploymentsPrefix}/{WebUtility.UrlEncode(_deploymentId)}";
     private string AzureVersionQueryString => $"?api-version={_apiVersion}";
     private string AssistantPrefix => $"{ApiPrefix}/";
+
     public string ModelRetrieve(string model)
     {
         return $"{Prefix}/models/{model}{AzureVersionQueryString}";
@@ -292,6 +293,7 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
 
         return url;
     }
+
     public string MessageDelete(string threadId, string messageId)
     {
         return $"{AssistantPrefix}/threads/{threadId}/messages/{messageId}{AzureVersionQueryString}";
@@ -448,11 +450,6 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return url;
     }
 
-    public string FineTuningJobList()
-    {
-        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
-    }
-
     public string BatchCreate()
     {
         return $"{Prefix}/batches{AzureVersionQueryString}";
@@ -468,10 +465,13 @@ internal class AzureOpenAiEndpointProvider : IOpenAiEndpointProvider
         return $"{Prefix}/batches/{batchId}/cancel{AzureVersionQueryString}";
     }
 
+    public string FineTuningJobList()
+    {
+        return $"{Prefix}/fine_tuning/jobs{AzureVersionQueryString}";
+    }
+
     private string Files()
     {
         return $"{Prefix}/files{AzureVersionQueryString}";
     }
-
-
 }
