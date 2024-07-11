@@ -7,10 +7,10 @@
 		<LangVersion>Latest</LangVersion>
 		<Copyright>Betalgo Up Ltd.</Copyright>
 		<PackageProjectUrl>https://openai.com/</PackageProjectUrl>
-		<PackageIcon>OpenAI-Betalgo.png</PackageIcon>
+		<PackageIcon>Betalgo-Ranul-OpenAI-icon.png</PackageIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>OpenAI SDK by Betalgo</Title>
-		<Version>8.5.1.1</Version>
+		<Version>8.6.0.1</Version>
 		<Authors>Tolga Kayhan, Betalgo</Authors>
 		<Company>Betalgo Up Ltd.</Company>
 		<Product>OpenAI ChatGPT, Whisper, GPT-4 and DALL·E dotnet SDK</Product>
@@ -47,7 +47,7 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="OpenAI-Betalgo.png">
+		<None Include="Betalgo-Ranul-OpenAI-icon.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
