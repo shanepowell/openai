@@ -16,6 +16,10 @@ public record UsageResponse
     [JsonPropertyName("completion_tokens_details")]
     public CompletionTokensDetails? CompletionTokensDetails { get; set; }
 
+    [JsonPropertyName("prompt_tokens_details")]
+    public PromptTokensDetails? PromptTokensDetails { get; set; }
+
+
     // Groq API specific fields
     [JsonPropertyName("queue_time")] public float? QueueTime { get; set; }
     [JsonPropertyName("prompt_time")] public float? PromptTime { get; set; }
