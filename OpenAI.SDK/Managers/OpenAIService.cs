@@ -1,23 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Betalgo.Ranul.OpenAI.EndpointProviders;
+using Betalgo.Ranul.OpenAI.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using OpenAI.EndpointProviders;
-using OpenAI.Interfaces;
 
-namespace OpenAI.Managers;
+namespace Betalgo.Ranul.OpenAI.Managers;
 
 public partial class OpenAIService : IOpenAIService, IDisposable
 {
     private readonly bool _disposeHttpClient;
-    private readonly IOpenAiEndpointProvider _endpointProvider;
+    private readonly IOpenAIEndpointProvider _endpointProvider;
     private readonly HttpClient _httpClient;
     private string? _defaultModelId;
 
     [ActivatorUtilitiesConstructor]
-    public OpenAIService(IOptions<OpenAiOptions> settings, HttpClient httpClient) : this(settings.Value, httpClient)
+    public OpenAIService(IOptions<OpenAIOptions> settings, HttpClient httpClient) : this(settings.Value, httpClient)
     {
     }
 
-    public OpenAIService(OpenAiOptions settings, HttpClient? httpClient = null)
+    public OpenAIService(OpenAIOptions settings, HttpClient? httpClient = null)
     {
         settings.Validate();
 
@@ -53,7 +53,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             case ProviderType.Groq:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 break;
-            case ProviderType.OpenAi:
+            case ProviderType.OpenAI:
             default:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 if (settings.UseBeta)
@@ -71,8 +71,8 @@ public partial class OpenAIService : IOpenAIService, IDisposable
 
         _endpointProvider = settings.ProviderType switch
         {
-            ProviderType.Azure => new AzureOpenAiEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
-            _ => new OpenAiEndpointProvider(settings.ApiVersion)
+            ProviderType.Azure => new AzureOpenAIEndpointProvider(settings.ApiVersion, settings.DeploymentId!),
+            _ => new OpenAIEndpointProvider(settings.ApiVersion)
         };
 
         _defaultModelId = settings.DefaultModelId;

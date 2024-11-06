@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace OpenAI.ObjectModels.RequestModels;
+namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 /// <summary>
 ///     Describes a tool call returned from GPT.

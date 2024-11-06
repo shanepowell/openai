@@ -1,14 +1,9 @@
-﻿using OpenAI.ObjectModels.ResponseModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
+using Betalgo.Ranul.OpenAI.ObjectModels.ResponseModels;
 
-namespace OpenAI.ObjectModels.SharedModels
+namespace Betalgo.Ranul.OpenAI.ObjectModels.SharedModels
 {
-    public record AssistatntFileResponse : BaseResponse, IOpenAiModels.IId, IOpenAiModels.ICreatedAt
+    public record AssistatntFileResponse : BaseResponse, IOpenAIModels.IId, IOpenAIModels.ICreatedAt
     {
         /// <summary>
         /// The identifier, which can be referenced in API endpoints.
