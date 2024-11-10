@@ -51,6 +51,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
                 break;
             case ProviderType.OpenRouterAi:
             case ProviderType.Groq:
+            case ProviderType.XAI:
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {settings.ApiKey}");
                 break;
             case ProviderType.OpenAI:

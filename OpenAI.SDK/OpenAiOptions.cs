@@ -23,7 +23,13 @@ public enum ProviderType
     /// <summary>
     ///     Groq Provider
     /// </summary>
-    Groq = 4
+    Groq = 4,
+
+    /// <summary>
+    ///     X AI Provider
+    /// </summary>
+    XAI = 5,
+
 }
 
 public class OpenAIOptions
@@ -37,6 +43,8 @@ public class OpenAIOptions
     private const string OpenRouterAiDefaultBaseDomain = "https://openrouter.ai/";
     private const string GroqDefaultApiVersion = "openai/v1";
     private const string GroqDefaultBaseDomain = "https://api.groq.com/";
+    private const string XAiDefaultApiVersion = "v1";
+    private const string XAiDefaultBaseDomain = "https://api.x.ai/";
 
     /// <summary>
     ///     Setting key for Json Setting Bindings
@@ -90,6 +98,7 @@ public class OpenAIOptions
                 ProviderType.Azure => AzureOpenAIDefaultApiVersion,
                 ProviderType.OpenRouterAi => OpenRouterAiDefaultApiVersion,
                 ProviderType.Groq => GroqDefaultApiVersion,
+                ProviderType.XAI => XAiDefaultApiVersion,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
         }
@@ -112,6 +121,7 @@ public class OpenAIOptions
                 ProviderType.Azure => ResourceName == null ? null : $"https://{ResourceName}.openai.azure.com/",
                 ProviderType.OpenRouterAi => OpenRouterAiDefaultBaseDomain,
                 ProviderType.Groq => GroqDefaultBaseDomain,
+                ProviderType.XAI => XAiDefaultBaseDomain,
                 _ => throw new ArgumentOutOfRangeException(nameof(ProviderType))
             };
 #pragma warning restore CS8603
