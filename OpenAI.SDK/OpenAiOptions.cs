@@ -106,6 +106,11 @@ public class OpenAIOptions
     }
 
     /// <summary>
+    ///    Base Real Time Socket Url
+    /// </summary>
+    public string BaseRealTimeSocketUrl { get; set; } = "wss://api.openai.com/v1/realtime";
+
+    /// <summary>
     ///     Base Domain
     /// </summary>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
