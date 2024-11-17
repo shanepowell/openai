@@ -127,7 +127,7 @@ public class SessionConfig
     ///     Maximum number of output tokens for a single assistant response.
     ///     Can be an integer between 1 and 4096, or "inf" for maximum available tokens.
     /// </summary>
-    [JsonPropertyName("max_output_tokens")]
+    [JsonPropertyName("max_response_output_tokens")]
     public MaxOutputTokens? MaxOutputTokens { get; set; }
 
     // Example usage method
