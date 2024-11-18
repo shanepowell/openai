@@ -12,7 +12,7 @@ public partial class OpenAIService : IChatCompletionService
     public async Task<ChatCompletionCreateResponse> CreateCompletion(ChatCompletionCreateRequest chatCompletionCreateRequest, string? modelId = null, CancellationToken cancellationToken = default)
     {
         chatCompletionCreateRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ChatCompletionCreateResponse>(_endpointProvider.ChatCompletionCreate(), chatCompletionCreateRequest, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -29,7 +29,7 @@ public partial class OpenAIService : IChatCompletionService
 
         if (!response.IsSuccessStatusCode)
         {
-            yield return await response.HandleResponseContent<ChatCompletionCreateResponse>(cancellationToken);
+            yield return await response.HandleResponseContent<ChatCompletionCreateResponse>(_providerType, cancellationToken);
             yield break;
         }
 

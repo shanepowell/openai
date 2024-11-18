@@ -10,7 +10,7 @@ public partial class OpenAIService : IFineTuneService
 {
     public async Task<FineTuneResponse> CreateFineTune(FineTuneCreateRequest createFineTuneRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<FineTuneResponse>(_endpointProvider.FineTuneCreate(), createFineTuneRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<FineTuneResponse>(_endpointProvider.FineTuneCreate(), createFineTuneRequest, _providerType, cancellationToken);
     }
 
     public async Task<FineTuneListResponse> ListFineTunes(CancellationToken cancellationToken = default)
@@ -28,7 +28,7 @@ public partial class OpenAIService : IFineTuneService
         return await _httpClient.PostAndReadAsAsync<FineTuneResponse>(_endpointProvider.FineTuneCancel(fineTuneId), new FineTuneCancelRequest
         {
             FineTuneId = fineTuneId
-        }, cancellationToken);
+        }, _providerType, cancellationToken);
     }
 
     public async Task<Stream> ListFineTuneEvents(string fineTuneId, bool? stream = null, CancellationToken cancellationToken = default)

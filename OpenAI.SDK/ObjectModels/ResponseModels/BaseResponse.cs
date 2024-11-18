@@ -90,12 +90,21 @@ public record ErrorList : DataBaseResponse<List<Error>>
 {
 }
 
+public class XaiError
+{
+    [JsonPropertyName("code")]
+    public JsonElement? CodeObject { get; set; } // in openai this is a string, in open router this is a number!
+
+    [JsonPropertyName("error")]
+    public string? Message { get; set; } // in openai this is a string, in open router this is a number!
+}
+
 public class Error
 {
     [JsonPropertyName("code")]
-    public object? CodeObject { get; set; } // in openai this is a string, in open router this is a number!
-    [JsonIgnore] public string? Code => CodeObject as string;
-    [JsonIgnore] public int? CodeAsInt => CodeObject as int?;
+    public JsonElement? CodeObject { get; set; } // in openai this is a string, in open router this is a number!
+    [JsonIgnore] public string? Code => CodeObject?.ToString();
+    [JsonIgnore] public int? CodeAsInt => CodeObject.HasValue && CodeObject.Value.ValueKind == JsonValueKind.Number ? CodeObject.Value.GetInt32() : null;
 
     [JsonPropertyName("param")]
     public string? Param { get; set; }

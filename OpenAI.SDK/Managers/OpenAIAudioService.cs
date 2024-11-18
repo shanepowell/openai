@@ -25,7 +25,7 @@ public partial class OpenAIService : IAudioService
 
     public async Task<AudioCreateSpeechResponse<T>> CreateSpeech<T>(AudioCreateSpeechRequest audioCreateSpeechRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsDataAsync<AudioCreateSpeechResponse<T>, T>(_endpointProvider.AudioCreateSpeech(), audioCreateSpeechRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsDataAsync<AudioCreateSpeechResponse<T>, T>(_endpointProvider.AudioCreateSpeech(), audioCreateSpeechRequest, _providerType, cancellationToken);
     }
 
     private async Task<AudioCreateTranscriptionResponse> Create(AudioCreateTranscriptionRequest audioCreateTranscriptionRequest, string uri, CancellationToken cancellationToken = default)
@@ -80,10 +80,10 @@ public partial class OpenAIService : IAudioService
         if (null == audioCreateTranscriptionRequest.ResponseFormat || StaticValues.AudioStatics.ResponseFormat.Json == audioCreateTranscriptionRequest.ResponseFormat ||
             StaticValues.AudioStatics.ResponseFormat.VerboseJson == audioCreateTranscriptionRequest.ResponseFormat)
         {
-            return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);
+            return await _httpClient.PostFileAndReadAsAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, _providerType, cancellationToken);
         }
 
-        var response = await _httpClient.PostFileAndReadAsStringAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, cancellationToken);
+        var response = await _httpClient.PostFileAndReadAsStringAsync<AudioCreateTranscriptionResponse>(uri, multipartContent, _providerType, cancellationToken);
         if (response.stringResponse != null)
         {
             response.baseResponse.Text = response.stringResponse;

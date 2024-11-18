@@ -12,13 +12,13 @@ public partial class OpenAIService : IAssistantService
     public async Task<AssistantResponse> AssistantCreate(AssistantCreateRequest request, string? modelId = null, CancellationToken cancellationToken = default)
     {
         request.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<AssistantResponse>(_endpointProvider.AssistantCreate(), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<AssistantResponse>(_endpointProvider.AssistantCreate(), request, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
     public async Task<AssistantListResponse> AssistantList(PaginationRequest? request = null, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetReadAsAsync<AssistantListResponse>(_endpointProvider.AssistantList(request), cancellationToken);
+        return await _httpClient.GetReadAsAsync<AssistantListResponse>(_endpointProvider.AssistantList(request), _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -29,7 +29,7 @@ public partial class OpenAIService : IAssistantService
             throw new ArgumentNullException(nameof(assistantId));
         }
 
-        return await _httpClient.GetReadAsAsync<AssistantResponse>(_endpointProvider.AssistantRetrieve(assistantId), cancellationToken);
+        return await _httpClient.GetReadAsAsync<AssistantResponse>(_endpointProvider.AssistantRetrieve(assistantId), _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -40,7 +40,7 @@ public partial class OpenAIService : IAssistantService
             throw new ArgumentNullException(nameof(assistantId));
         }
 
-        return await _httpClient.PostAndReadAsAsync<AssistantResponse>(_endpointProvider.AssistantModify(assistantId), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<AssistantResponse>(_endpointProvider.AssistantModify(assistantId), request, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -51,6 +51,6 @@ public partial class OpenAIService : IAssistantService
             throw new ArgumentNullException(nameof(assistantId));
         }
 
-        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantDelete(assistantId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.AssistantDelete(assistantId), _providerType, cancellationToken);
     }
 }

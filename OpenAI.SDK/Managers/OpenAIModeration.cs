@@ -10,6 +10,6 @@ public partial class OpenAIService : IModerationService
     /// <inheritdoc />
     public async Task<CreateModerationResponse> CreateModeration(CreateModerationRequest createModerationRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<CreateModerationResponse>(_endpointProvider.ModerationCreate(), createModerationRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<CreateModerationResponse>(_endpointProvider.ModerationCreate(), createModerationRequest, _providerType, cancellationToken);
     }
 }

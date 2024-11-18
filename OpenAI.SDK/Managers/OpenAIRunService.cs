@@ -26,7 +26,7 @@ public partial class OpenAIService : IRunService
         }
 
         request.ProcessModelId(modelId, _defaultModelId, true);
-        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCreate(threadId), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCreate(threadId), request, _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public partial class OpenAIService : IRunService
 
         if (!response.IsSuccessStatusCode)
         {
-            yield return await response.HandleResponseContent<RunResponse>(cancellationToken);
+            yield return await response.HandleResponseContent<RunResponse>(_providerType, cancellationToken);
             yield break;
         }
 
@@ -73,7 +73,7 @@ public partial class OpenAIService : IRunService
             throw new ArgumentNullException(nameof(runId));
         }
 
-        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunModify(threadId, runId), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunModify(threadId, runId), request, _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -96,7 +96,7 @@ public partial class OpenAIService : IRunService
             throw new ArgumentNullException(nameof(runId));
         }
 
-        return await _httpClient.GetReadAsAsync<RunResponse>(_endpointProvider.RunRetrieve(threadId, runId), cancellationToken);
+        return await _httpClient.GetReadAsAsync<RunResponse>(_endpointProvider.RunRetrieve(threadId, runId), _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public partial class OpenAIService : IRunService
             throw new ArgumentNullException(nameof(threadId));
         }
 
-        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCancel(threadId, runId), null, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunCancel(threadId, runId), null, _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -143,7 +143,7 @@ public partial class OpenAIService : IRunService
             throw new ArgumentNullException(nameof(runId));
         }
 
-        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.RunSubmitToolOutputs(threadId, runId), request, _providerType, cancellationToken);
     }
 
     public async IAsyncEnumerable<BaseResponse> RunSubmitToolOutputsAsStream(string threadId, string runId, SubmitToolOutputsToRunRequest request, bool justDataMode = true, [EnumeratorCancellation] CancellationToken cancellationToken = default)
@@ -156,7 +156,7 @@ public partial class OpenAIService : IRunService
 
         if (!response.IsSuccessStatusCode)
         {
-            yield return await response.HandleResponseContent<BaseResponse>(cancellationToken);
+            yield return await response.HandleResponseContent<BaseResponse>(_providerType, cancellationToken);
             yield break;
         }
 
@@ -166,7 +166,7 @@ public partial class OpenAIService : IRunService
     /// <inheritdoc />
     public async Task<RunResponse> CreateThreadAndRun(CreateThreadAndRunRequest requestBody, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.ThreadAndRunCreate(), requestBody, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<RunResponse>(_endpointProvider.ThreadAndRunCreate(), requestBody, _providerType, cancellationToken);
     }
 
     public async IAsyncEnumerable<BaseResponse> CreateThreadAndRunAsStream(CreateThreadAndRunRequest createThreadAndRunRequest, string? modelId = null, bool justDataMode = true,
@@ -182,7 +182,7 @@ public partial class OpenAIService : IRunService
 
         if (!response.IsSuccessStatusCode)
         {
-            yield return await response.HandleResponseContent<BaseResponse>(cancellationToken);
+            yield return await response.HandleResponseContent<BaseResponse>(_providerType, cancellationToken);
             yield break;
         }
 
@@ -192,6 +192,6 @@ public partial class OpenAIService : IRunService
     /// <inheritdoc />
     public async Task<RunListResponse> ListRuns(string threadId, PaginationRequest runListRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.GetReadAsAsync<RunListResponse>(_endpointProvider.RunList(threadId, runListRequest), cancellationToken);
+        return await _httpClient.GetReadAsAsync<RunListResponse>(_endpointProvider.RunList(threadId, runListRequest), _providerType, cancellationToken);
     }
 }

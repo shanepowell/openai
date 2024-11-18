@@ -25,13 +25,13 @@ public partial class OpenAIService : IFileService
             { new ByteArrayContent(file), "file", fileName }
         };
 
-        return await _httpClient.PostFileAndReadAsAsync<FileUploadResponse>(_endpointProvider.FilesUpload(), multipartContent, cancellationToken);
+        return await _httpClient.PostFileAndReadAsAsync<FileUploadResponse>(_endpointProvider.FilesUpload(), multipartContent, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
     public async Task<FileDeleteResponse> DeleteFile(string fileId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.DeleteAndReadAsAsync<FileDeleteResponse>(_endpointProvider.FileDelete(fileId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<FileDeleteResponse>(_endpointProvider.FileDelete(fileId), _providerType, cancellationToken);
     }
 
     /// <inheritdoc />

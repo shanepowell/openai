@@ -10,7 +10,7 @@ public partial class OpenAIService : IFineTuningJobService
 {
     public async Task<FineTuningJobResponse> CreateFineTuningJob(FineTuningJobCreateRequest createFineTuningJobRequest, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCreate(), createFineTuningJobRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCreate(), createFineTuningJobRequest, _providerType, cancellationToken);
     }
 
     public async Task<FineTuningJobListResponse> ListFineTuningJobs(FineTuningJobListRequest? fineTuningJobListRequest, CancellationToken cancellationToken = default)
@@ -25,7 +25,7 @@ public partial class OpenAIService : IFineTuningJobService
 
     public async Task<FineTuningJobResponse> CancelFineTuningJob(string fineTuningJobId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCancel(fineTuningJobId), null, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<FineTuningJobResponse>(_endpointProvider.FineTuningJobCancel(fineTuningJobId), null, _providerType, cancellationToken);
     }
 
     public async Task<Stream> ListFineTuningJobEvents(FineTuningJobListEventsRequest fineTuningJobRequestModel, bool? stream = null, CancellationToken cancellationToken = default)

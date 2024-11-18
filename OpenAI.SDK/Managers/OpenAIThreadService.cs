@@ -16,7 +16,7 @@ public partial class OpenAIService : IThreadService
     /// <exception cref="NotImplementedException"></exception>
     public async Task<ThreadResponse> ThreadCreate(ThreadCreateRequest? request = null, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<ThreadResponse>(_endpointProvider.ThreadCreate(), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ThreadResponse>(_endpointProvider.ThreadCreate(), request, _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public partial class OpenAIService : IThreadService
             throw new ArgumentNullException(nameof(threadId));
         }
 
-        return await _httpClient.GetReadAsAsync<ThreadResponse>(_endpointProvider.ThreadRetrieve(threadId), cancellationToken);
+        return await _httpClient.GetReadAsAsync<ThreadResponse>(_endpointProvider.ThreadRetrieve(threadId), _providerType, cancellationToken);
     }
 
     /// <summary>
@@ -50,12 +50,12 @@ public partial class OpenAIService : IThreadService
             throw new ArgumentNullException(nameof(threadId));
         }
 
-        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadDelete(threadId), cancellationToken);
+        return await _httpClient.DeleteAndReadAsAsync<DeletionStatusResponse>(_endpointProvider.ThreadDelete(threadId), _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
     public async Task<ThreadResponse> ModifyThread(string threadId, ModifyThreadRequest requestBody, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<ThreadResponse>(_endpointProvider.ThreadModify(threadId), requestBody, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<ThreadResponse>(_endpointProvider.ThreadModify(threadId), requestBody, _providerType, cancellationToken);
     }
 }

@@ -11,6 +11,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
     private readonly IOpenAIEndpointProvider _endpointProvider;
     private readonly HttpClient _httpClient;
     private string? _defaultModelId;
+    private ProviderType _providerType;
 
     [ActivatorUtilitiesConstructor]
     public OpenAIService(IOptions<OpenAIOptions> settings, HttpClient httpClient) : this(settings.Value, httpClient)
@@ -44,6 +45,7 @@ public partial class OpenAIService : IOpenAIService, IDisposable
             _httpClient.DefaultRequestHeaders.Add("X-Title", settings.XTitle);
         }
 
+        _providerType = settings.ProviderType;
         switch (settings.ProviderType)
         {
             case ProviderType.Azure:

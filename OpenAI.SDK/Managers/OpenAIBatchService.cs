@@ -11,7 +11,7 @@ public partial class OpenAIService : IBatchService
     /// <inheritdoc />
     public async Task<BatchResponse> BatchCreate(BatchCreateRequest request, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCreate(), request, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCreate(), request, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -23,6 +23,6 @@ public partial class OpenAIService : IBatchService
     /// <inheritdoc />
     public async Task<BatchResponse> BatchCancel(string batchId, CancellationToken cancellationToken = default)
     {
-        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCancel(batchId), null, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<BatchResponse>(_endpointProvider.BatchCancel(batchId), null, _providerType, cancellationToken);
     }
 }

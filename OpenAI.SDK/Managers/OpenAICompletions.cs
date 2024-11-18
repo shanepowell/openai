@@ -13,7 +13,7 @@ public partial class OpenAIService : ICompletionService
     public async Task<CompletionCreateResponse> CreateCompletion(CompletionCreateRequest createCompletionRequest, string? modelId = null, CancellationToken cancellationToken = default)
     {
         createCompletionRequest.ProcessModelId(modelId, _defaultModelId);
-        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest, cancellationToken);
+        return await _httpClient.PostAndReadAsAsync<CompletionCreateResponse>(_endpointProvider.CompletionCreate(), createCompletionRequest, _providerType, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -29,7 +29,7 @@ public partial class OpenAIService : ICompletionService
 
         if (!response.IsSuccessStatusCode)
         {
-            yield return await response.HandleResponseContent<CompletionCreateResponse>(cancellationToken);
+            yield return await response.HandleResponseContent<CompletionCreateResponse>(_providerType, cancellationToken);
             yield break;
         }
 
