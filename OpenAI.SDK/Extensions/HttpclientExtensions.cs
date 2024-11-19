@@ -139,44 +139,50 @@
         public static async Task<TResponse> HandleResponseContent<TResponse>(this HttpResponseMessage response, ProviderType providerType, CancellationToken cancellationToken) where TResponse : BaseResponse, new()
         {
             TResponse result;
-
-            if (!response.Content.Headers.ContentType?.MediaType?.Equals("application/json", StringComparison.OrdinalIgnoreCase) ?? true)
+            var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+            try
             {
-                result = new()
+                if (!response.Content.Headers.ContentType?.MediaType?.Equals("application/json", StringComparison.OrdinalIgnoreCase) ?? true)
                 {
-                    Error = new()
+                    result = new()
                     {
-                        MessageObject = await response.Content.ReadAsStringAsync(cancellationToken)
-                    }
-                };
-            }
-            else
-            {
-                var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
-                if (providerType == ProviderType.XAI)
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        result = JsonSerializer.Deserialize<TResponse>(responseJson) ?? throw new InvalidOperationException();
-                    }
-                    else
-                    {
-                        var error = JsonSerializer.Deserialize<XaiError>(responseJson) ?? throw new InvalidOperationException();
-                        result = new()
+                        Error = new()
                         {
-                            Error = new()
-                            {
-                                CodeObject = error.CodeObject,
-                                MessageObject = error.Message,
-                            }
-                        };
-                    }
+                            MessageObject = responseJson
+                        }
+                    };
                 }
                 else
                 {
-                    result = JsonSerializer.Deserialize<TResponse>(responseJson) ?? throw new InvalidOperationException();
+                    if (providerType == ProviderType.XAI)
+                    {
+                        if (response.IsSuccessStatusCode)
+                        {
+                            result = JsonSerializer.Deserialize<TResponse>(responseJson) ?? throw new InvalidOperationException();
+                        }
+                        else
+                        {
+                            var error = JsonSerializer.Deserialize<XaiError>(responseJson) ?? throw new InvalidOperationException();
+                            result = new()
+                            {
+                                Error = new()
+                                {
+                                    CodeObject = error.CodeObject,
+                                    MessageObject = error.Message!,
+                                }
+                            };
+                        }
+                    }
+                    else
+                    {
+                        result = JsonSerializer.Deserialize<TResponse>(responseJson) ?? throw new InvalidOperationException();
+                    }
                 }
-                //result = await response.Content.ReadFromJsonAsync<TResponse>(cancellationToken: cancellationToken) ?? throw new InvalidOperationException();
+
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException($"Failed to parse response: {responseJson}", e);
             }
 
             result.HttpStatusCode = response.StatusCode;
