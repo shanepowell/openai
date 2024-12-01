@@ -298,7 +298,7 @@ public partial class OpenAIRealtimeService : IOpenAIRealtimeService
         try
         {
             var webSocket = _webSocketClient.WebSocket;
-            var url = new Uri($"{_openAIOptions.BaseRealTimeSocketUrl}?model={_openAIOptions.DefaultModelId ?? Models.Gpt_4o_realtime_preview_2024_10_01}");
+            var url = new Uri($"{_openAIOptions.BaseRealTimeSocketUrl}?model={_openAIOptions.DefaultModelId ?? Models.Gpt_4o_realtime_preview_2024_10_01}{_openAIOptions.ExtraRealTimeSocketUrlQueryParams ?? string.Empty}");
             await webSocket.ConnectAsync(url, linkedCts.Token).ConfigureAwait(false);
 
             if (webSocket.State != WebSocketState.Open)

@@ -110,6 +110,8 @@ public class OpenAIOptions
     /// </summary>
     public string BaseRealTimeSocketUrl { get; set; } = "wss://api.openai.com/v1/realtime";
 
+    public string? ExtraRealTimeSocketUrlQueryParams { get; set; }
+
     /// <summary>
     ///     Base Domain
     /// </summary>
