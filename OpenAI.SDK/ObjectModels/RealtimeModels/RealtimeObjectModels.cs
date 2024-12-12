@@ -270,7 +270,7 @@ public class ConversationItem
     ///     The unique ID of the item.
     /// </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     ///     The type of the item.
