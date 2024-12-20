@@ -61,3 +61,12 @@ public class ResponseFormatOneOfType
     [JsonIgnore]
     public ResponseFormat? AsObject { get; set; }
 }
+
+public class Audio
+{
+    [JsonPropertyName("voice")]
+    public string Voice { get; set; }
+
+    [JsonPropertyName("format")]
+    public string Format { get; set; }
+}

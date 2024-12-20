@@ -321,4 +321,16 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     /// </summary>
     [JsonPropertyName("store")]
     public bool? Store { get; set; }
+
+    [JsonPropertyName("reasoning_effort")]
+    public string? ReasoningEffort { get; set; }
+
+    [JsonPropertyName("metadata")]
+    public object? Metadata { get; set; }
+
+    [JsonPropertyName("modalities")]
+    public List<string>? Modalities { get; set; }
+
+    [JsonPropertyName("audio")]
+    public Audio? Audio { get; set; }
 }
