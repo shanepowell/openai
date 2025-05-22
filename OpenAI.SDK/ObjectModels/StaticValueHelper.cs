@@ -55,28 +55,50 @@ public class StaticValues
 
         public static class ResponseFormat
         {
+            /// <summary>
+            ///     Only dall-e-2/dall-e-3 models
+            /// </summary>
             public static string Url => "url";
             public static string Base64 => "b64_json";
         }
 
         public static class Style
         {
+            /// <summary>
+            ///     Only dall-e-2/dall-e-3 models
+            /// </summary>
             public static string Vivid => "vivid";
             public static string Natural => "natural";
         }
 
         public static class Quality
         {
+            /// <summary>
+            ///     Only gpt-image-1 model
+            /// </summary>
+            public static string High => "high";
+            public static string Medium => "medium";
+            public static string Low => "low";
+
+            /// <summary>
+            ///     Only dall-e-2/dall-e-3 models
+            /// </summary>
             public static string Standard => "standard";
+
+            /// <summary>
+            ///     Only dall-e-3 model
+            /// </summary>
             public static string Hd => "hd";
+
+            public static string Auto => "auto";
         }
 
         public static class ImageFileTypes
         {
-            public static string Jpeg => "JPEG";
-            public static string Png => "PNG";
-            public static string Webp => "WEBP";
-            public static string Gif => "GIF";
+            public static string Jpeg => "jpeg";
+            public static string Png => "png";
+            public static string Webp => "webp";
+            public static string Gif => "gif";
         }
 
         public static class ImageDetailTypes
@@ -84,6 +106,35 @@ public class StaticValues
             public static string High => "high";
             public static string Low => "low";
             public static string Auto => "auto";
+        }
+
+        public static class Background
+        {
+            /// <summary>
+            ///     Only gpt-image-1 model
+            /// </summary>
+            public static string Transparent => "transparent";
+            public static string Opaque => "opaque";
+            public static string Auto => "auto";
+        }
+
+        public static class Moderation
+        {
+            /// <summary>
+            ///     Only gpt-image-1 model
+            /// </summary>
+            public static string Low => "low";
+            public static string Auto => "auto";
+        }
+
+        public static class OutputFormat
+        {
+            /// <summary>
+            ///     Only gpt-image-1 model
+            /// </summary>
+            public static string Png => "png";
+            public static string Jpeg => "jpeg";
+            public static string Webp => "webp";
         }
     }
 
