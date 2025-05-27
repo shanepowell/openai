@@ -30,6 +30,22 @@ public class StaticValues
             public static string None => "none";
             public static string Required => "required";
         }
+
+        public static class SearchParameters
+        {
+            public static class Mode
+            {
+                public static string Off => "off";
+                public static string On => "on";
+                public static string Auto => "auto";
+
+                // specific search types
+                public static string X => "x";
+                public static string Web => "web";
+                public static string News => "news";
+                public static string Rss => "rss";
+            }
+        }
     }
 
     public static class ImageStatics

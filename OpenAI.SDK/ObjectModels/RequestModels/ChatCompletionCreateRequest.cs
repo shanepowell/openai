@@ -378,4 +378,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
 
     [JsonPropertyName("audio")]
     public Audio? Audio { get; set; }
+
+    [JsonPropertyName("search_parameters")]
+    public SearchParameters?  SearchParameters { get; set; }
 }
