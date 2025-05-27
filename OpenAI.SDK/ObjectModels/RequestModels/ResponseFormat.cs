@@ -70,3 +70,110 @@ public class Audio
     [JsonPropertyName("format")]
     public string Format { get; set; }
 }
+
+public class SearchParameters
+{
+    [JsonIgnore]
+    public DateTime? FromDate { get; set; }
+
+    [JsonPropertyName("from_date")]
+    public string? FromDateStr
+    {
+        get => FromDate?.ToString("yyyy-MM-dd");
+        set
+        {
+            if (DateTime.TryParse(value, out var date))
+            {
+                FromDate = date;
+            }
+            else
+            {
+                FromDate = null;
+            }
+        }
+    }
+
+    [JsonIgnore]
+    public DateTime? ToDate { get; set; }
+
+    [JsonPropertyName("to_date")]
+    public string? ToDateStr
+    {
+        get => ToDate?.ToString("yyyy-MM-dd");
+        set
+        {
+            if (DateTime.TryParse(value, out var date))
+            {
+                ToDate = date;
+            }
+            else
+            {
+                ToDate = null;
+            }
+        }
+    }
+
+    [JsonPropertyName("max_search_results")]
+    public int? MaxSearchResults { get; set; }
+
+    [JsonPropertyName("mode")]
+    public string? Mode { get; set; }
+
+    [JsonPropertyName("return_citations")]
+    public bool? ReturnCitations { get; set; }
+
+    [JsonPropertyName("sources")]
+    public List<ISearchParametersSource>? Sources { get; set; }
+}
+
+public interface ISearchParametersSource
+{
+
+    [JsonPropertyName("type")]
+    string Type { get; }
+}
+
+public class SearchParametersSourceWeb : ISearchParametersSource
+{
+    [JsonPropertyName("type")]
+    public string Type => StaticValues.CompletionStatics.SearchParameters.Mode.Web;
+ 
+    [JsonPropertyName("country")]
+    public string? Country { get; set; }
+
+    [JsonPropertyName("excluded_websites")]
+    public List<string>? ExcludedWebsites { get; set; }
+
+    [JsonPropertyName("safe_search")]
+    public bool? SafeSearch { get; set; }
+}
+
+public class SearchParametersSourceNews : ISearchParametersSource
+{
+    [JsonPropertyName("type")]
+    public string Type => StaticValues.CompletionStatics.SearchParameters.Mode.News;
+ 
+    [JsonPropertyName("country")]
+    public string? Country { get; set; }
+
+    [JsonPropertyName("safe_search")]
+    public bool? SafeSearch { get; set; }
+}
+
+public class SearchParametersSourceRss : ISearchParametersSource
+{
+    [JsonPropertyName("type")]
+    public string Type => StaticValues.CompletionStatics.SearchParameters.Mode.Rss;
+ 
+    [JsonPropertyName("links")]
+    public List<string> Links { get; set; } = new List<string>();
+}
+
+public class SearchParametersSourceX : ISearchParametersSource
+{
+    [JsonPropertyName("type")]
+    public string Type => StaticValues.CompletionStatics.SearchParameters.Mode.X;
+ 
+    [JsonPropertyName("x_handles")]
+    public List<string> XHandles { get; set; } = new List<string>();
+}
