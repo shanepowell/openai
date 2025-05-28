@@ -156,6 +156,9 @@ public class SearchParametersSourceNews : ISearchParametersSource
     [JsonPropertyName("country")]
     public string? Country { get; set; }
 
+    [JsonPropertyName("excluded_websites")]
+    public List<string>? ExcludedWebsites { get; set; }
+
     [JsonPropertyName("safe_search")]
     public bool? SafeSearch { get; set; }
 }
