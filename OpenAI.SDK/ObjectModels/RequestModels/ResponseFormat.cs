@@ -73,6 +73,8 @@ public class Audio
 
 public class SearchParameters
 {
+    private List<object>? _sourcesObjects;
+
     [JsonIgnore]
     public DateTime? FromDate { get; set; }
 
@@ -122,8 +124,15 @@ public class SearchParameters
     [JsonPropertyName("return_citations")]
     public bool? ReturnCitations { get; set; }
 
-    [JsonPropertyName("sources")]
+    [JsonIgnore]
     public List<ISearchParametersSource>? Sources { get; set; }
+
+    [JsonPropertyName("sources")]
+    public List<object>? SourcesObjects
+    {
+        get => _sourcesObjects ?? Sources?.Cast<object>().ToList();
+        set => _sourcesObjects = value;
+    }
 }
 
 public interface ISearchParametersSource
