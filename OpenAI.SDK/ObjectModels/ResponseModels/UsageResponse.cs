@@ -25,4 +25,7 @@ public record UsageResponse
     [JsonPropertyName("prompt_time")] public float? PromptTime { get; set; }
     [JsonPropertyName("completion_time")] public float? CompletionTime { get; set; }
     [JsonPropertyName("total_time")] public float? TotalTime { get; set; }
+
+    // x-ai
+    [JsonPropertyName("number_searches")] public int? NumberSearches { get; set; }
 }

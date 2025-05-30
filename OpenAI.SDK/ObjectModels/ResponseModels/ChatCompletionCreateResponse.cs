@@ -51,4 +51,7 @@ public record ChatCompletionCreateResponse : BaseResponse, IOpenAIModels.IId, IO
 
     // Groq API specific fields
     [JsonPropertyName("x_groq")] public GroqUsageResponse? XGroq { get; set; }
+ 
+    // x-ai citations
+    [JsonPropertyName("citations")] public string[]? Citations { get; set; }
 }
