@@ -150,6 +150,9 @@ public class SearchParametersSourceWeb : ISearchParametersSource
     [JsonPropertyName("country")]
     public string? Country { get; set; }
 
+    [JsonPropertyName("allowed_websites")]
+    public List<string>? AllowedWebsites { get; set; }
+
     [JsonPropertyName("excluded_websites")]
     public List<string>? ExcludedWebsites { get; set; }
 

@@ -208,4 +208,8 @@ public record CompletionCreateRequest : IModelValidate, IOpenAIModels.ITemperatu
     /// </summary>
     [JsonPropertyName("user")]
     public string? User { get; set; }
+
+    // x-ai parameters
+    [JsonPropertyName("search_parameters")]
+    public SearchParameters?  SearchParameters { get; set; }
 }
