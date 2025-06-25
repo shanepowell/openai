@@ -54,3 +54,39 @@ public class MessageImageFile
     [JsonPropertyName("detail")]
     public string Detail { get; set; }
 }
+
+public class MessageAudioData
+{
+    /// <summary>
+    ///     Base64 encoded audio data.
+    /// </summary>
+    [JsonPropertyName("data")]
+    public string Data { get; set; }
+
+    /// <summary>
+    ///     The format of the encoded audio data. Currently supports "wav" and "mp3".
+    /// </summary>
+    [JsonPropertyName("format")]
+    public string Format { get; set; }
+}
+
+public class Messagefile
+{
+    /// <summary>
+    ///     The base64 encoded file data, used when passing the file to the model as a string.
+    /// </summary>
+    [JsonPropertyName("file_data")]
+    public string? FileData { get; set; }
+
+    /// <summary>
+    ///     The ID of an uploaded file to use as input.
+    /// </summary>
+    [JsonPropertyName("file_id")]
+    public string? FileId { get; set; }
+
+    /// <summary>
+    ///     The name of the file, used when passing the file to the model as a string.
+    /// </summary>
+    [JsonPropertyName("filename")]
+    public string? Filename { get; set; }
+}

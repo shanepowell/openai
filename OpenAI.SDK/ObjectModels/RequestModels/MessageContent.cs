@@ -29,6 +29,12 @@ public class MessageContent
     [JsonPropertyName("image_file")]
     public MessageImageFile? ImageFile { get; set; }
 
+    [JsonPropertyName("input_audio")]
+    public MessageAudioData? InputAudio { get; set; }
+
+    [JsonPropertyName("file")]
+    public Messagefile? File { get; set; }
+
     /// <summary>
     ///     Static helper method to create MessageContent Text
     ///     <param name="text">The text content</param>
@@ -79,6 +85,33 @@ public class MessageContent
                 Url = string.Format("data:image/{0};base64,{1}", imageType, Convert.ToBase64String(binaryImage)),
                 Detail = detail
             }
+        };
+    }
+
+    public static MessageContent AudioFileContent(string base64data, string format)
+    {
+        return new()
+        {
+            Type = "input_audio",
+            InputAudio = new() { Data = base64data, Format = format }
+        };
+    }
+
+    public static MessageContent DataFile(string fileId, string? filename = null)
+    {
+        return new()
+        {
+            Type = "file",
+            File = new() { FileId = fileId, Filename = filename }
+        };
+    }
+
+    public static MessageContent DataFileContent(string base64FileData, string? filename = null)
+    {
+        return new()
+        {
+            Type = "file",
+            File = new() { FileData = base64FileData, Filename = filename }
         };
     }
 }
