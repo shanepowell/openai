@@ -46,6 +46,41 @@ public partial class OpenAIService : IImageService
             multipartContent.Add(new StringContent(imageEditCreateRequest.N.Value.ToString(CultureInfo.InvariantCulture)), "n");
         }
 
+        if (imageEditCreateRequest.Background != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Background), "background");
+        }
+
+        if (imageEditCreateRequest.InputFidelity != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.InputFidelity), "input_fidelity");
+        }
+
+        if (imageEditCreateRequest.OutputCompression != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.OutputCompression.ToString()!), "output_compression");
+        }
+
+        if (imageEditCreateRequest.OutputFormat != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.OutputFormat), "output_format");
+        }
+
+        if (imageEditCreateRequest.PartialImages != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.PartialImages.ToString()!), "partial_images");
+        }
+
+        if (imageEditCreateRequest.Quality != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Quality), "quality");
+        }
+
+        if (imageEditCreateRequest.Stream != null)
+        {
+            multipartContent.Add(new StringContent(imageEditCreateRequest.Stream.ToString()!), "stream");
+        }
+
         if (imageEditCreateRequest.Model != null)
         {
             multipartContent.Add(new StringContent(imageEditCreateRequest.Model!), "model");
@@ -53,11 +88,22 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.Mask != null)
         {
-            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.MaskName);
+            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask.Content), "mask", imageEditCreateRequest.Mask.Name);
         }
 
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
-        multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+
+        if (imageEditCreateRequest.Images.Count == 1)
+        {
+            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Images[0].Content), "image", imageEditCreateRequest.Images[0].Name);
+        }
+        else
+        {
+            foreach (var image in imageEditCreateRequest.Images)
+            {
+                multipartContent.Add(new ByteArrayContent(image.Content), "image[]", image.Name);
+            }
+        }
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, _providerType, cancellationToken);
     }

@@ -1,6 +1,10 @@
 ﻿using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels;
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 using OpenAI.Playground.ExtensionsAndHelpers;
+using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace OpenAI.Playground.TestHelpers;
 
@@ -61,10 +65,8 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImageEdit(new()
             {
-                Image = originalFile,
-                ImageName = originalFileName,
-                Mask = maskFile,
-                MaskName = maskFileName,
+                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile}],
+                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile},
                 Prompt = "A sunlit indoor lounge area with a pool containing a cat",
                 N = 4,
                 Size = StaticValues.ImageStatics.Size.Size1024,
@@ -76,6 +78,69 @@ internal static class ImageTestHelper
             if (imageResult.Successful)
             {
                 Console.WriteLine(string.Join("\n", imageResult.Results.Select(r => r.Url)));
+            }
+            else
+            {
+                if (imageResult.Error == null)
+                {
+                    throw new("Unknown Error");
+                }
+
+                Console.WriteLine($"{imageResult.Error.Code}: {imageResult.Error.Message}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public static async Task RunSimpleCreateImagesEditTest(IOpenAIService sdk)
+    {
+        ConsoleExtensions.WriteLine("Image Edit Create Testing is starting:", ConsoleColor.Cyan);
+        const string maskFileName = "image_edit_mask.png";
+        const string originalFileName = "image_edit_original.png";
+        const string logoFileName = "logo.png";
+
+        // Images should be in png format with ARGB. I got help from this website to generate sample mask
+        // https://www.online-image-editor.com/
+        var maskFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{maskFileName}");
+        var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
+        var logoFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{logoFileName}");
+
+        try
+        {
+            ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
+            var imageResult = await sdk.Image.CreateImageEdit(new()
+            {
+                Model = "gpt-image-1",
+                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile}, new ImageEditFile { Name = logoFileName, Content = logoFile }],
+                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile},
+                Prompt = "A sunlit indoor lounge area with a pool containing the logo",
+                User = "TestUser"
+            });
+
+
+            if (imageResult.Successful)
+            {
+                var index = 0;
+                foreach (var image in imageResult.Results)
+                {
+                    var filePath = Path.Combine(Path.GetTempPath(), $"TempImage{index}.png");
+                    index++;
+
+                    ConsoleExtensions.WriteLine($"Image: {filePath}", ConsoleColor.DarkCyan);
+
+                    File.WriteAllBytes(filePath, Convert.FromBase64String(image.B64));
+
+                    var psi = new ProcessStartInfo(filePath)
+                    {
+                        UseShellExecute = true
+                    };
+                    Process.Start(psi);
+                }
+
             }
             else
             {
