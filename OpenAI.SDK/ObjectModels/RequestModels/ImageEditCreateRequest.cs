@@ -7,6 +7,7 @@ public record ImageEditFile
 {
     public string Name { get; set; } 
     public byte[] Content { get; set; }
+    public string? MimeType { get; set; } 
 }
 
 public record ImageEditCreateRequest : SharedImageRequestBaseModel

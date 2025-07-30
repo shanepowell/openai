@@ -96,6 +96,68 @@ internal static class ImageTestHelper
         }
     }
 
+    public static async Task RunSimpleCreateImageEditTest2(IOpenAIService sdk)
+    {
+        ConsoleExtensions.WriteLine("Image Edit Create Testing is starting:", ConsoleColor.Cyan);
+        const string maskFileName = "image_edit_mask.png";
+        const string originalFileName = "image_edit_original.png";
+
+        // Images should be in png format with ARGB. I got help from this website to generate sample mask
+        // https://www.online-image-editor.com/
+        var maskFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{maskFileName}");
+        var originalFile = await FileExtensions.ReadAllBytesAsync($"SampleData/{originalFileName}");
+
+        try
+        {
+            ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
+            var imageResult = await sdk.Image.CreateImageEdit(new()
+            {
+                Model = "gpt-image-1",
+                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile, MimeType = "image/png"}],
+                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile, MimeType = "image/png"},
+                Prompt = "A sunlit indoor lounge area with a pool containing a cat",
+                N = 4,
+                Size = StaticValues.ImageStatics.Size.Size1024,
+                User = "TestUser"
+            });
+
+
+            if (imageResult.Successful)
+            {
+                var index = 0;
+                foreach (var image in imageResult.Results)
+                {
+                    var filePath = Path.Combine(Path.GetTempPath(), $"TempImage{index}.png");
+                    index++;
+
+                    ConsoleExtensions.WriteLine($"Image: {filePath}", ConsoleColor.DarkCyan);
+
+                    File.WriteAllBytes(filePath, Convert.FromBase64String(image.B64));
+
+                    var psi = new ProcessStartInfo(filePath)
+                    {
+                        UseShellExecute = true
+                    };
+                    Process.Start(psi);
+                }
+            }
+            else
+            {
+                if (imageResult.Error == null)
+                {
+                    throw new("Unknown Error");
+                }
+
+                Console.WriteLine($"{imageResult.Error.Code}: {imageResult.Error.Message}");
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     public static async Task RunSimpleCreateImagesEditTest(IOpenAIService sdk)
     {
         ConsoleExtensions.WriteLine("Image Edit Create Testing is starting:", ConsoleColor.Cyan);
@@ -171,8 +233,7 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image Variation Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImageVariation(new()
             {
-                Image = originalFile,
-                ImageName = originalFileName,
+                Image = new() { Name = originalFileName, Content = originalFile },
                 N = 2,
                 Size = StaticValues.ImageStatics.Size.Size1024,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,

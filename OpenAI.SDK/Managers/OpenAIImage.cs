@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net.Http.Headers;
 using Betalgo.Ranul.OpenAI.Extensions;
 using Betalgo.Ranul.OpenAI.Interfaces;
 using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
@@ -88,24 +89,35 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.Mask != null)
         {
-            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Mask.Content), "mask", imageEditCreateRequest.Mask.Name);
+            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.Mask.Name);
         }
 
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
 
         if (imageEditCreateRequest.Images.Count == 1)
         {
-            multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Images[0].Content), "image", imageEditCreateRequest.Images[0].Name);
+            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Images[0]), "image", imageEditCreateRequest.Images[0].Name);
         }
         else
         {
             foreach (var image in imageEditCreateRequest.Images)
             {
-                multipartContent.Add(new ByteArrayContent(image.Content), "image[]", image.Name);
+                multipartContent.Add(ToImageFileContent(image), "image[]", image.Name);
             }
         }
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageEditCreate(), multipartContent, _providerType, cancellationToken);
+    }
+
+    private static ByteArrayContent ToImageFileContent(ImageEditFile image)
+    {
+        var content = new ByteArrayContent(image.Content);
+        if (!string.IsNullOrEmpty(image.MimeType))
+        {
+            content.Headers.ContentType = new MediaTypeHeaderValue(image.MimeType);
+        }
+
+        return content;
     }
 
     /// <summary>
@@ -141,7 +153,7 @@ public partial class OpenAIService : IImageService
             multipartContent.Add(new StringContent(imageEditCreateRequest.Model!), "model");
         }
 
-        multipartContent.Add(new ByteArrayContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.ImageName);
+        multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.Image.Name);
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, _providerType, cancellationToken);
     }
