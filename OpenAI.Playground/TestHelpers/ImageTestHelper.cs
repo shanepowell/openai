@@ -174,7 +174,7 @@ internal static class ImageTestHelper
             {
                 Model = "gpt-image-1",
                 Images = [new ImageEditFile{ Name = "logo", Content = logoFile, MimeType = "image/png"}],
-                Prompt = "A man with the logo (IPFX) (IP part is white) on it's black t-shirt",
+                Prompt = "A man with the logo (IPFX) (IP part is white) on it's black t-shirt centred",
                 N = 1,
                 Size = StaticValues.ImageStatics.Size.Size1024,
                 User = "TestUser"
