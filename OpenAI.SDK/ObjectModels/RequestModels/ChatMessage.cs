@@ -64,6 +64,15 @@ public class ChatMessage
     [JsonPropertyName("reasoning_content")]
     public string? ReasoningContent { get; set; }
 
+    [JsonPropertyName("refusal")]
+    public string? Refusal { get; set; }
+
+    [JsonPropertyName("annotations")]
+    public List<Annotation>? Annotations { get; set; }
+
+    [JsonPropertyName("audio")]
+    public AudioResponse? Audio { get; set; }
+
     [JsonIgnore]
     public IList<MessageContent>? Contents { get; set; }
 
