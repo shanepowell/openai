@@ -65,8 +65,8 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image  Edit Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImageEdit(new()
             {
-                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile}],
-                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile},
+                Images = [new ImageEditFile{ FileName = originalFileName, Content = originalFile}],
+                Mask = new ImageEditFile{ FileName = maskFileName, Content = maskFile},
                 Prompt = "A sunlit indoor lounge area with a pool containing a cat",
                 N = 4,
                 Size = StaticValues.ImageStatics.Size.Size1024,
@@ -113,8 +113,8 @@ internal static class ImageTestHelper
             var imageResult = await sdk.Image.CreateImageEdit(new()
             {
                 Model = "gpt-image-1",
-                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile, MimeType = "image/png"}],
-                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile, MimeType = "image/png"},
+                Images = [new ImageEditFile{ FileName = originalFileName, Content = originalFile, MimeType = "image/png"}],
+                Mask = new ImageEditFile{ FileName = maskFileName, Content = maskFile, MimeType = "image/png"},
                 Prompt = "A sunlit indoor lounge area with a pool containing a cat",
                 N = 4,
                 Size = StaticValues.ImageStatics.Size.Size1024,
@@ -173,7 +173,7 @@ internal static class ImageTestHelper
             var imageResult = await sdk.Image.CreateImageEdit(new()
             {
                 Model = "gpt-image-1",
-                Images = [new ImageEditFile{ Name = "logo", Content = logoFile, MimeType = "image/png"}],
+                Images = [new ImageEditFile{ FileName = "logo", Content = logoFile, MimeType = "image/png"}],
                 Prompt = "A man with the logo (IPFX) (IP part is white) on it's black t-shirt centred",
                 N = 1,
                 Size = StaticValues.ImageStatics.Size.Size1024,
@@ -236,8 +236,8 @@ internal static class ImageTestHelper
             var imageResult = await sdk.Image.CreateImageEdit(new()
             {
                 Model = "gpt-image-1",
-                Images = [new ImageEditFile{ Name = originalFileName, Content = originalFile}, new ImageEditFile { Name = logoFileName, Content = logoFile }],
-                Mask = new ImageEditFile{ Name = maskFileName, Content = maskFile},
+                Images = [new ImageEditFile{ FileName = originalFileName, Content = originalFile}, new ImageEditFile { FileName = logoFileName, Content = logoFile }],
+                Mask = new ImageEditFile{ FileName = maskFileName, Content = maskFile},
                 Prompt = "A sunlit indoor lounge area with a pool containing the logo",
                 User = "TestUser"
             });
@@ -292,7 +292,7 @@ internal static class ImageTestHelper
             ConsoleExtensions.WriteLine("Image Variation Create Test:", ConsoleColor.DarkCyan);
             var imageResult = await sdk.Image.CreateImageVariation(new()
             {
-                Image = new() { Name = originalFileName, Content = originalFile },
+                Image = new() { FileName = originalFileName, Content = originalFile },
                 N = 2,
                 Size = StaticValues.ImageStatics.Size.Size1024,
                 ResponseFormat = StaticValues.ImageStatics.ResponseFormat.Url,

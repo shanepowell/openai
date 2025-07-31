@@ -89,20 +89,20 @@ public partial class OpenAIService : IImageService
 
         if (imageEditCreateRequest.Mask != null)
         {
-            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.Mask.Name);
+            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Mask), "mask", imageEditCreateRequest.Mask.FileName);
         }
 
         multipartContent.Add(new StringContent(imageEditCreateRequest.Prompt), "prompt");
 
         if (imageEditCreateRequest.Images.Count == 1)
         {
-            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Images[0]), "image", imageEditCreateRequest.Images[0].Name);
+            multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Images[0]), "image", imageEditCreateRequest.Images[0].FileName);
         }
         else
         {
             foreach (var image in imageEditCreateRequest.Images)
             {
-                multipartContent.Add(ToImageFileContent(image), "image[]", image.Name);
+                multipartContent.Add(ToImageFileContent(image), "image[]", image.FileName);
             }
         }
 
@@ -153,7 +153,7 @@ public partial class OpenAIService : IImageService
             multipartContent.Add(new StringContent(imageEditCreateRequest.Model!), "model");
         }
 
-        multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.Image.Name);
+        multipartContent.Add(ToImageFileContent(imageEditCreateRequest.Image), "image", imageEditCreateRequest.Image.FileName);
 
         return await _httpClient.PostFileAndReadAsAsync<ImageCreateResponse>(_endpointProvider.ImageVariationCreate(), multipartContent, _providerType, cancellationToken);
     }

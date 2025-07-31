@@ -5,7 +5,7 @@ namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
 public record ImageEditFile
 {
-    public string Name { get; set; } 
+    public string FileName { get; set; } 
     public byte[] Content { get; set; }
     public string? MimeType { get; set; } 
 }
