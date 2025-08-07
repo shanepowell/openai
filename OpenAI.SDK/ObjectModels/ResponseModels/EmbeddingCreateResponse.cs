@@ -20,5 +20,5 @@ public record EmbeddingResponse
     public int? Index { get; set; }
 
     [JsonPropertyName("embedding")]
-    public List<double> Embedding { get; set; }
+    public List<float> Embedding { get; set; }
 }
