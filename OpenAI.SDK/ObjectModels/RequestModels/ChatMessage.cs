@@ -61,18 +61,6 @@ public class ChatMessage
     [JsonIgnore]
     public string? Content { get; set; }
     
-    [JsonPropertyName("reasoning_content")]
-    public string? ReasoningContent { get; set; }
-
-    [JsonPropertyName("refusal")]
-    public string? Refusal { get; set; }
-
-    [JsonPropertyName("annotations")]
-    public List<Annotation>? Annotations { get; set; }
-
-    [JsonPropertyName("audio")]
-    public AudioResponse? Audio { get; set; }
-
     [JsonIgnore]
     public IList<MessageContent>? Contents { get; set; }
 
@@ -125,6 +113,18 @@ public class ChatMessage
     /// </summary>
     [JsonPropertyName("tool_calls")]
     public IList<ToolCall>? ToolCalls { get; set; }
+
+    [JsonPropertyName("reasoning_content")]
+    public string? ReasoningContent { get; set; }
+
+    [JsonPropertyName("refusal")]
+    public string? Refusal { get; set; }
+
+    [JsonPropertyName("annotations")]
+    public List<Annotation>? Annotations { get; set; }
+
+    [JsonPropertyName("audio")]
+    public AudioResponse? Audio { get; set; }
 
     public static ChatMessage FromAssistant(string content, string? name = null, IList<ToolCall>? toolCalls = null)
     {

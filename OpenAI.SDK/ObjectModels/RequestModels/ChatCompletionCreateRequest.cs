@@ -287,7 +287,7 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     public string? Model { get; set; }
 
     /// <summary>
-    ///     Constrains effort on reasoning for reasoning models. Currently supported values are low, medium, and high.
+    ///     Constrains effort on reasoning for reasoning models. Currently supported values are minimal, low, medium, and high.
     ///     Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
     /// </summary>
     [JsonPropertyName("reasoning_effort")]
@@ -347,6 +347,20 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     public string? User { get; set; }
 
     /// <summary>
+    ///     A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies. The
+    ///     IDs should be a string that uniquely identifies each user. We recommend hashing their username or email address, in
+    ///     order to avoid sending us any identifying information. 
+    /// </summary>
+    [JsonPropertyName("safety_identifier")]
+    public string? SafetyIdentifier { get; set; }
+
+    /// <summary>
+    ///     Used by OpenAI to cache responses for similar requests to optimize your cache hit rates. Replaces the user field.
+    /// </summary>
+    [JsonPropertyName("prompt_cache_key")]
+    public string? PromptCacheKey { get; set; }
+
+    /// <summary>
     /// Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:
     /// If set to 'auto', and the Project is Scale tier enabled, the system will utilize scale tier credits until they are exhausted.
     /// If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarentee.
@@ -370,14 +384,47 @@ public class ChatCompletionCreateRequest : IModelValidate, IOpenAIModels.ITemper
     [JsonPropertyName("store")]
     public bool? Store { get; set; }
 
+    /// <summary>
+    ///   Set of 16 key-value pairs that can be attached to an object. This can be useful for storing additional information about the object in a structured format, and querying for objects via API or the dashboard.
+    ///   
+    ///   Keys are strings with a maximum length of 64 characters. Values are strings with a maximum length of 512 characters.
+    /// </summary>
     [JsonPropertyName("metadata")]
     public object? Metadata { get; set; }
 
+    /// <summary>
+    ///   Output types that you would like the model to generate. Most models are capable of generating text, which is the default:
+    ///   ["text"]
+    ///      The gpt-4o-audio-preview model can also be used to generate audio. To request that this model generate both text and audio responses, you can use:
+    ///   ["text", "audio"]
+    /// </summary>
     [JsonPropertyName("modalities")]
     public List<string>? Modalities { get; set; }
 
+    /// <summary>
+    ///   Parameters for audio output. Required when audio output is requested with modalities: ["audio"].
+    /// </summary>
     [JsonPropertyName("audio")]
     public Audio? Audio { get; set; }
+
+    /// <summary>
+    ///   Constrains the verbosity of the model's response. Lower values will result in more concise responses, while higher values will result in more verbose responses. Currently supported values are low, medium, and high.
+    /// </summary>
+    [JsonPropertyName("verbosity")]
+    public string? Verbosity { get; set; }
+
+
+    /// <summary>
+    ///   This tool searches the web for relevant results to use in a response. Learn more about the web search tool.
+    /// </summary>
+    [JsonPropertyName("web_search_options")]
+    public WebSearchOptions? WebSearchOptions { get; set; }
+
+    /// <summary>
+    ///   Configuration for a Predicted Output, which can greatly improve response times when large parts of the model response are known ahead of time. This is most common when you are regenerating a file with only minor changes to most of the content.
+    /// </summary>
+    [JsonPropertyName("prediction")]
+    public Prediction? Prediction { get; set; }
 
     // x-ai parameters
     [JsonPropertyName("search_parameters")]

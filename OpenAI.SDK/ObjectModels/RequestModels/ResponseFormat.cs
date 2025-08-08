@@ -1,5 +1,6 @@
-﻿using System.Text.Json.Serialization;
-using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
+﻿using Betalgo.Ranul.OpenAI.ObjectModels.SharedModels;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
 
@@ -70,6 +71,88 @@ public class Audio
     [JsonPropertyName("format")]
     public string Format { get; set; }
 }
+
+public class WebSearchOptions
+{
+    [JsonPropertyName("search_context_size")]
+    public string? SearchContextSize { get; set; }
+
+    [JsonPropertyName("user_location")]
+    public UserLocation? UserLocation { get; set; }
+}
+
+public class UserLocation
+{
+    [JsonPropertyName("approximate")]
+    public UserLocationApproximate? Approximate { get; set; }
+
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = "approximate";
+}
+
+public class UserLocationApproximate
+{
+    /// <summary>
+    ///   Free text input for the city of the user, e.g. San Francisco.
+    /// </summary>
+    [JsonPropertyName("city")]
+    public string? City { get; set; }
+
+    /// <summary>
+    ///   The two-letter ISO country code of the user, e.g. US.
+    /// </summary>
+    [JsonPropertyName("country")]
+    public string? Country { get; set; }
+
+    /// <summary>
+    ///   Free text input for the region of the user, e.g. California.
+    /// </summary>
+    [JsonPropertyName("region")]
+    public string? Region { get; set; }
+
+    /// <summary>
+    ///   The IANA timezone of the user, e.g. America/Los_Angeles.
+    /// </summary>
+    [JsonPropertyName("timezone")]
+    public string? Timezone { get; set; }
+}
+
+// Static Content
+public class Prediction
+{
+    [JsonIgnore]
+    public string? Content { get; set; }
+
+    [JsonIgnore]
+    public IList<MessageContent>? Contents { get; set; }
+
+    /// <summary>
+    ///     The contents of the message.
+    /// </summary>
+    [JsonPropertyName("content")]
+    public object ContentCalculated
+    {
+        get
+        {
+            if (Content is not null && Contents is not null)
+            {
+                throw new ValidationException("Content and Contents can not be assigned at the same time. One of them must be null.");
+            }
+
+            if (Content is not null)
+            {
+                return Content;
+            }
+
+            return Contents!;
+        }
+        set => Content = value?.ToString();
+    }
+
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = "content";
+}
+
 
 public class SearchParameters
 {
