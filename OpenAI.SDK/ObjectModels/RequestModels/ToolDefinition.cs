@@ -30,6 +30,12 @@ public class ToolDefinition
     [JsonIgnore]
     public object? FunctionsAsObject { get; set; }
 
+    [JsonIgnore]
+    public CustomDefinition? Custom { get; set; }
+
+    [JsonIgnore]
+    public object? CustomAsObject { get; set; }
+
     /// <summary>
     ///     Required. The description of what the function does.
     /// </summary>
@@ -38,12 +44,16 @@ public class ToolDefinition
     {
         get
         {
-            if (FunctionsAsObject != null && Function != null)
+            var hasFunction = FunctionsAsObject != null ? 1 : 0;
+            hasFunction += Function != null ? 1 : 0;
+            hasFunction += CustomAsObject != null ? 1 : 0;
+            hasFunction += Custom != null ? 1 : 0;
+            if (hasFunction > 1)
             {
-                throw new ValidationException("FunctionAsObject and Function can not be assigned at the same time. One of them is should be null.");
+                throw new ValidationException("Function and FunctionsAsObject and CustomAsObject and Custom can not be assigned at the same time. Only one of them is should be assigned.");
             }
 
-            return Function ?? FunctionsAsObject;
+            return Function ?? FunctionsAsObject ?? Custom ?? CustomAsObject;
         }
     }
 

@@ -21,6 +21,19 @@ public class StaticValues
         public static class ToolType
         {
             public static string Function => "function";
+            public static string Custom => "custom";
+        }
+
+        public static class CustomToolType
+        {
+            public static string Text => "text";
+            public static string Grammar => "grammar";
+        }
+
+        public static class CustomToolGrammarSyntax
+        {
+            public static string Lark => "lark";
+            public static string Regex => "regex";
         }
 
         public static class ToolChoiceType
