@@ -53,7 +53,25 @@ public class ToolDefinition
                 throw new ValidationException("Function and FunctionsAsObject and CustomAsObject and Custom can not be assigned at the same time. Only one of them is should be assigned.");
             }
 
-            return Function ?? FunctionsAsObject ?? Custom ?? CustomAsObject;
+            return Function ?? FunctionsAsObject;
+        }
+    }
+
+    [JsonPropertyName("custom")]
+    public object? CustomCalculated
+    {
+        get
+        {
+            var hasFunction = FunctionsAsObject != null ? 1 : 0;
+            hasFunction += Function != null ? 1 : 0;
+            hasFunction += CustomAsObject != null ? 1 : 0;
+            hasFunction += Custom != null ? 1 : 0;
+            if (hasFunction > 1)
+            {
+                throw new ValidationException("Function and FunctionsAsObject and CustomAsObject and Custom can not be assigned at the same time. Only one of them is should be assigned.");
+            }
+
+            return Custom ?? CustomAsObject;
         }
     }
 
