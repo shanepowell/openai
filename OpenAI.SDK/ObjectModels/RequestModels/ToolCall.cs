@@ -33,4 +33,10 @@ public class ToolCall
     /// </summary>
     [JsonPropertyName("function")]
     public FunctionCall? FunctionCall { get; set; }
+
+    /// <summary>
+    ///     The function that the model called.
+    /// </summary>
+    [JsonPropertyName("custom")]
+    public CustomFunctionCall? CustomFunctionCall { get; set; }
 }

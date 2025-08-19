@@ -29,3 +29,18 @@ public class FunctionCall
         return result ?? new Dictionary<string, object>();
     }
 }
+
+public class CustomFunctionCall
+{
+    /// <summary>
+    ///     Custom Function name
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+    /// <summary>
+    ///     Custom Function input.
+    /// </summary>
+    [JsonPropertyName("input")]
+    public string? Input { get; set; }
+}
